@@ -346,6 +346,7 @@ def get_failed_tests(test_result_fp):
 
 
 def process_test(cmd, azdev_test_result_fp, live_rerun=False, modules=[]):
+    run_command(['az', 'account', 'show'])
     error_flag = run_command(cmd)
     if not error_flag or not live_rerun:
         return error_flag
@@ -358,6 +359,7 @@ def process_test(cmd, azdev_test_result_fp, live_rerun=False, modules=[]):
         return error_flag
     # drop the original `--pytest-args` and add new arguments
     cmd = cmd[:-2] + ['--lf', '--live', '--pytest-args', '-o junit_family=xunit1']
+    run_command(['az', 'account', 'show'])
     error_flag = run_command(cmd)
     # restore original recording yaml file for failed test in live run
     if error_flag:
