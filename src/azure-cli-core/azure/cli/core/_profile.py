@@ -543,7 +543,9 @@ class Profile:
     def get_subscription(self, subscription=None):  # take id or name
         subscriptions = self.load_cached_subscriptions()
         if not subscriptions:
-            raise CLIError(_AZ_LOGIN_MESSAGE + self._storage.filename)
+            with open(self._storage.filename, encoding='utf-8-sig') as f:
+                content = f.read()
+            raise CLIError(_AZ_LOGIN_MESSAGE + self._storage.filename + content)
 
         result = [x for x in subscriptions if (
             not subscription and x.get(_IS_DEFAULT_SUBSCRIPTION) or
