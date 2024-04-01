@@ -131,6 +131,7 @@ jobs:
           az account set -s 0b1f6471-1bf0-4dda-aec3-cb9272f09590
   
           serial_modules="appservice botservice cloud network azure-cli-core azure-cli-telemetry"
+          env
           python scripts/ci/automation_full_test.py "8" "$(Instance_idx)" "latest" "$serial_modules" "True"
     - task: PublishTestResults@2
       inputs:
